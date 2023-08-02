@@ -1,0 +1,66 @@
+
+<script type="text/javascript">
+	RED.nodes.registerType(
+		"mmg2-connector",
+		
+		{
+			category: "config",
+			
+			defaults: {
+				name: {
+					value: "",
+					required: true
+				},
+
+				host: {
+					value: "",
+					required: true
+				},
+
+				username: {
+					value: "",
+					required: true
+				},
+
+				password: {
+					value: "",
+					required: true
+				}
+			},
+			
+			inputs:  0,
+
+			outputs: 1,
+
+			icon: "white-globe.svg",
+			label: function() {
+				if (this.username && this.host) {
+					return this.username + "@" + this.host;
+				}
+				return "MMG2 Connection";
+			}
+		}
+	);
+</script>
+
+<script type="text/html" data-template-name="mmg2-connector">
+
+	<div class="form-row">
+		<label for="node-config-input-host"><i class="fa fa-tag"></i> Host</label>
+		<input type="text" id="node-config-input-host" placeholder="Host">
+	</div>
+
+	<div class="form-row">
+		<label for="node-config-input-username"><i class="fa fa-tag"></i> Username</label>
+		<input type="text" id="node-config-input-username" placeholder="Username">
+	</div>
+
+	<div class="form-row">
+		<label for="node-config-input-name"><i class="fa fa-tag"></i> Password</label>
+		<input type="password" id="node-config-input-password" placeholder="Password">
+	</div>
+</script>
+
+<script type="text/html" data-help-name="mmg2-connector">
+	<p>A node that connects to an MMG2 instance.</p>
+</script>

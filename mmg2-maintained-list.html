@@ -1,0 +1,203 @@
+<script type="text/javascript">
+	const
+		DATA_SET_OPTIONS     = [
+			{
+				value:     3,
+				label:     "Sites",
+				idField:   "locationID",
+				nameField: "locationName"
+			},
+			{
+				value:     4,
+				label:     "Locations",
+				idField:   "locationID",
+				nameField: "locationName"
+			},
+			{
+				value:     11,
+				label:     "Alarms"
+			},
+			{
+				value:     13,
+				label:     "Control Instructions"
+			},
+			{
+				value:     101,
+				label:     "Device Types (Static)",
+				idField:   "deviceTypeID",
+				nameField: "deviceTypeName"
+			},
+			{
+				value:     102,
+				label:     "Service Classifications (Static)",
+				idField:   "serviceClassID",
+				nameField: "name"
+			}
+		],
+
+		OUTPUT_FORMATS       = [
+			{ value: 1, label: "Raw" },
+			{ value: 2, label: "FlexDash Simple Table" },
+			{ value: 3, label: "FlexDash Dropdown Select" }
+		],
+
+		getDataSetProperties = (id) => {
+			for (let a = 0; a < DATA_SET_OPTIONS.length; a += 1) {
+				if (DATA_SET_OPTIONS[a].value === parseInt(id)) {
+					return DATA_SET_OPTIONS[a];
+				}
+			}
+
+			return null;
+		},
+
+		getFormatName        = (id) => {
+			for (let a = 0; a < OUTPUT_FORMATS.length; a += 1) {
+				if (OUTPUT_FORMATS[a].value === parseInt(id)) {
+					return OUTPUT_FORMATS[a].label;
+				}
+			}
+
+			return null;
+		};
+
+
+
+	RED.nodes.registerType(
+		"mmg2-maintained-list",
+		
+		{
+			category: "MMG2",
+			color:    "#299FD3",
+			
+			defaults: {
+				connection: {
+					value: "",
+					type:  "mmg2-connector",
+					required: true
+				},
+
+				dataset: {
+					value: 4,
+					required: true
+				},
+
+				format: {
+					value: 1,
+					required: true,
+					validate: (x)  => {
+						if (x.value > 1) {
+							return !!getDataSetProperties(parseInt($("#node-input-dataset").val())).idField;
+						}
+						return true;
+					}
+				},
+
+				deviceTypeID: {
+					value: ""
+				},
+
+				locationID: {
+					value: 0
+				},
+
+				serviceClassID: {
+					value: undefined
+				}
+			},
+			
+			inputs:  1,
+
+			outputs: 1,
+
+			icon: "white-globe.svg",
+			label: function() {
+				return "List: " + getDataSetProperties(this.dataset).label;
+			},
+
+			oneditprepare: () => {
+				let el = $("#node-input-dataset");
+
+				el.typedInput({
+					types: [
+						{
+							value: "dataset",
+							options: DATA_SET_OPTIONS
+						}
+					]
+				});
+
+				el.on("change", () => {
+					let id = parseInt(el.val());
+
+					$("#node-input-deviceTypeID").prop("disabled",   (id !== 4) || (id > 100));
+					$("#node-input-serviceClassID").prop("disabled", (id !== 4) || (id > 100));
+					
+					$("#node-input-locationID").prop("disabled",     (id === 3) || (id > 100));
+				});
+
+
+				el = $("#node-input-format");
+
+				el.typedInput({
+					types: [
+						{
+							value: "Format",
+							options: OUTPUT_FORMATS
+						}
+					]
+				});
+
+				el.on("change", () => {
+					let id = parseInt(el.val());
+
+					$("#node-input-deviceTypeID").prop("disabled",   (id !== 4) || (id > 100));
+					$("#node-input-serviceClassID").prop("disabled", (id !== 4) || (id > 100));
+					
+					$("#node-input-locationID").prop("disabled",     (id === 3) || (id > 100));
+				});
+			}
+		}
+	);
+</script>
+
+<script type="text/html" data-template-name="mmg2-maintained-list">
+	<div class="form-row">
+		<label for="node-input-connection"><i class="fa fa-tag"></i>Connection</label>
+		<input id="node-input-connection">
+	</div>
+
+	<div class="form-row">
+		<label for="node-input-dataset"><i class="fa fa-tag"></i>Type</label>
+		<input type="text" id="node-input-dataset">
+	</div>
+
+	<div class="form-row">
+		<label for="node-input-format"><i class="fa fa-tag"></i>Format</label>
+		<input type="text" id="node-input-format">
+	</div>
+	<p>New format needed? Let us know.</p>
+
+	<div class="form-row">
+		<label for="node-input-locationID"><i class="fa fa-tag"></i>locationID</label>
+		<input type="text" id="node-input-locationID" placeholder="locationID">
+	</div>
+	<p>Parent location. Override by setting msg.locationID</p>
+
+	<div class="form-row">
+		<label for="node-input-deviceTypeID"><i class="fa fa-tag"></i>deviceTypeID</label>
+		<input type="text" id="node-input-deviceTypeID" placeholder="Device Type Identifier">
+	</div>
+	<p>Restrict to devices of type. Override by setting msg.deviceTypeID</p>
+
+	<div class="form-row">
+		<label for="node-input-serviceClassID"><i class="fa fa-tag"></i>serviceClassID</label>
+		<input type="text" id="node-input-serviceClassID" placeholder="Service Classification ID">
+	</div>
+	<p>Restict to locations providing a particular service type. Override by setting msg.serviceClassID</p>
+
+</script>
+
+<script type="text/html" data-help-name="mmg2-maintained-list">
+	<p>A simple node that maintains a list of entities.</p>
+</script>

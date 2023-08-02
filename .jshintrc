@@ -1,0 +1,21 @@
+{
+  "browser": true,
+  "node": false,
+  "esversion": 6,
+  "predef": [RED,$],
+  "undef": true,
+  "unused": true,
+  "bitwise": true,
+  "curly": true,
+  "eqeqeq": true,
+  "forin": true,
+  "freeze": true,
+  "futurehostile": true,
+  "maxparams": 5,
+  "noarg": true,
+  "nocomma": true,
+  "nonbsp": true,
+  "nonew": true,
+  "strict": false,
+  "indent": 1
+}

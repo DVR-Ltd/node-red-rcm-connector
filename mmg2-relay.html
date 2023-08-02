@@ -1,0 +1,57 @@
+<script type="text/javascript">
+	RED.nodes.registerType(
+		"mmg2-relay",
+		
+		{
+			category: "MMG2",
+			color:    "#299FD3",
+			
+			defaults: {
+				connection: {
+					value: "",
+					type:  "mmg2-connector"
+				},
+
+				locationID: {
+					value: 0
+				},
+
+				control: {
+					value: -1
+				}
+			},
+			
+			inputs:  1,
+			outputs: 1,
+
+			icon: "cog.svg",
+
+			label: function() {
+				return "Relay";
+			}
+		}
+	);
+</script>
+
+<script type="text/html" data-template-name="mmg2-relay">
+	<div class="form-row">
+		<label for="node-input-connection"><i class="fa fa-tag"></i>Connection</label>
+		<input id="node-input-connection">
+	</div>
+
+	<div class="form-row">
+		<label for="node-input-locationID"><i class="fa fa-tag"></i>locationID</label>
+		<input type="text" id="node-input-locationID" placeholder="locationID">
+	</div>
+	<p>Location to set control instruction for. Override by setting msg.locationID.</p>
+
+	<div class="form-row">
+		<label for="node-input-control"><i class="fa fa-tag"></i>Control</label>
+		<input type="text" id="node-input-control" placeholder="Control Value">
+	</div>
+	<p>Relay value to set. Override by setting msg.control.</p>
+</script>
+
+<script type="text/html" data-help-name="mmg2-relay">
+	<p>Control a relay.</p>
+</script>
