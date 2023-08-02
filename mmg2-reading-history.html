@@ -1,0 +1,82 @@
+<script type="text/javascript">
+	const 
+		CONVERT_OPTIONS = [
+			{	value: 1, label: "Raw" },
+			{	value: 2, label: "FlexDash: Simple Table" },
+			{	value: 3, label: "FlexDash: TimePlot" }
+		];
+
+	RED.nodes.registerType(
+		"mmg2-reading-history",
+		
+		{
+			category: "MMG2",
+			color:    "#299FD3",
+			
+			defaults: {
+				connection: {
+					value: "",
+					type:  "mmg2-connector"
+				},
+
+				format: {
+					value: 1,
+					required: true
+				},
+
+				locationID: {
+					value: 0
+				}
+			},
+			
+			inputs:  1,
+			outputs: 1,
+
+			icon: "arrow-in.svg",
+
+			label: () => "Reading History",
+
+			oneditprepare: () => {
+				let el = $("#node-input-format");
+
+				el.typedInput({
+					types: [
+						{
+							value:   "format",
+							options: CONVERT_OPTIONS
+						}
+					]
+				});
+			}
+		}
+	);
+</script>
+
+<script type="text/html" data-template-name="mmg2-reading-history">
+	<div class="form-row">
+		<label for="node-input-connection"><i class="fa fa-tag"></i> Connection</label>
+		<input id="node-input-connection">
+	</div>
+
+	<div class="form-row">
+		<label for="node-input-format"><i class="fa fa-tag"></i>Format</label>
+		<input type="text" id="node-input-format">
+	</div>
+	<p>New format needed? Let us know.</p>
+
+	<div class="form-row">
+		<label for="node-input-locationID"><i class="fa fa-tag"></i>locationID</label>
+		<input type="text" id="node-input-locationID" placeholder="locationID">
+	</div>
+	<p>Location to show data for. Override by setting msg.locationID.</p>
+
+	<div class="form-row">
+		<label for="node-input-beginTime"><i class="fa fa-tag"></i>Begin Time</label>
+		<input type="text" id="node-input-beginTime" placeholder="Begin Time">
+	</div>
+	<p>Point to return data from. Override by setting msg.beginTime.</p>
+</script>
+
+<script type="text/html" data-help-name="mmg2-reading-history">
+	<p>A simple node that fetches reading history.</p>
+</script>

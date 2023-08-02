@@ -1,0 +1,22 @@
+{
+  "name": "node-red-contrib-mmg2-connector",
+  "version": "1.0.0",
+  "description": "MMG2 Connector for Node-RED",
+  "main": "mmg2-connector.js",
+  "author": "Gary Ott",
+  "license": "ISC",
+  "node-red": {
+    "nodes": {
+      "mmg2-connector": "mmg2-connector.js",
+      "mmg2-maintained-list": "mmg2-maintained-list.js",
+      "mmg2-reading": "mmg2-reading.js",
+      "mmg2-reading-history": "mmg2-reading-history.js",
+      "mmg2-relay": "mmg2-relay.js",
+      "mmg2-isolate": "mmg2-isolate.js"
+    }
+  },
+  "dependencies": {
+    "rcm-core-client": "^1.0.0",
+    "ws": "^8.13.0"
+  }
+}

@@ -1,0 +1,68 @@
+<script type="text/javascript">
+	RED.nodes.registerType(
+		"mmg2-reading",
+		
+		{
+			category: "MMG2",
+			color:    "#299FD3",
+			
+			defaults: {
+				connection: {
+					value: "",
+					type:  "mmg2-connector"
+				},
+
+				locationID: {
+					value: 0
+				},
+
+				wrap: {
+					value: false
+				},
+
+				beginTime: {
+					value: 0
+				}
+			},
+			
+			inputs:  1,
+			outputs: 1,
+
+			icon: "arrow-in.svg",
+
+			label: function() {
+				return "Reading";
+			}
+		}
+	);
+</script>
+
+<script type="text/html" data-template-name="mmg2-reading">
+	<div class="form-row">
+		<label for="node-input-connection"><i class="fa fa-tag"></i> Connection</label>
+		<input id="node-input-connection">
+	</div>
+
+	<div class="form-row">
+		<label for="node-input-locationID"><i class="fa fa-tag"></i>locationID</label>
+		<input type="input" id="node-input-locationID" placeholder="locationID">
+	</div>
+	<p>Location to show data for. Override by setting msg.locationID.</p>
+
+	<div class="form-row">
+		<label for="node-input-wrap"><i class="fa fa-tag"></i>Wrap with payload object</label>
+		<input type="checkbox" id="node-input-wrap" placeholder="wrap">
+	</div>
+	<p>Wrapped: { &quot;payload&quot;: { &quot;value&quot;:1 }}</p>
+	<p>Unwrapped: { &quot;value&quot;:1 }</p>
+
+	<div class="form-row">
+		<label for="node-input-beginTime"><i class="fa fa-tag"></i>Begin Time</label>
+		<input type="text" id="node-input-beginTime" placeholder="Begin Time">
+	</div>
+	<p>Point to return data from. Override by setting msg.beginTime.</p>
+</script>
+
+<script type="text/html" data-help-name="mmg2-reading">
+	<p>A simple node that maintains a current reading.</p>
+</script>

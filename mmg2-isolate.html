@@ -1,0 +1,71 @@
+<script type="text/javascript">
+	const ISOLATION_OPTIONS = [
+			{ value: 1,  label: "Reading"},
+			{ value: 2,  label: "Relay"},
+			{ value: 3,  label: "Switch"},
+			{ value: 4,  label: "Timestamp"},
+			{ value: 5,  label: "Hardware Faults"},
+			{ value: 6,  label: "Serial Number"},
+			{ value: 7,  label: "locationID" },
+			{ value: 8,  label: "Service Classification" },
+			{ value: 9,  label: "Device Type" }
+		],
+
+		getIsolationName = (id) => {
+			for (let a = 0; a < ISOLATION_OPTIONS.length; a += 1) {
+				if (ISOLATION_OPTIONS[a].value === parseInt(id)) {
+					return ISOLATION_OPTIONS[a].label;
+				}
+			}
+
+			return null;
+		};
+
+	RED.nodes.registerType(
+		"mmg2-isolate",
+		
+		{
+			category: "MMG2",
+			color:    "#E6EEF2",
+			
+			defaults: {
+				isolate: {
+					value: 0
+				}
+			},
+			
+			inputs:  2,
+
+			outputs: 1,
+
+			icon: "swap.svg",
+			label: function() {
+				return "Isolate: " + getIsolationName(this.isolate);
+			},
+
+			oneditprepare: () => {
+				let el = $("#node-input-isolate");
+
+				el.typedInput({
+					types: [
+						{
+							value: "isolate",
+							options: ISOLATION_OPTIONS
+						}
+					]
+				});
+			}
+		}
+	);
+</script>
+
+<script type="text/html" data-template-name="mmg2-isolate">
+	<div class="form-row">
+		<label for="node-input-isolate"><i class="fa fa-tag"></i> Field</label>
+		<input type="text" id="node-input-isolate">
+	</div>
+</script>
+
+<script type="text/html" data-help-name="mmg2-isolate">
+	<p>A simple node that extracts a single property from a reading set.</p>
+</script>
