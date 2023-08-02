@@ -3,7 +3,7 @@
 const
 	{
 		MMG2CoreAPI
-	}     = require("node-red-rcm-connector"),
+	}     = require("rcm-core-client"),
 
 
 	getDeviceTypes = (node, conn) => {
