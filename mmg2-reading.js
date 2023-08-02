@@ -31,6 +31,11 @@ module.exports = function(RED) {
 				},
 
 				updateReadingHandler  = (topic, msg) => {
+
+					if (!msg) {
+						return;
+					}
+
 					let
 						errors = [],
 						payload = {
