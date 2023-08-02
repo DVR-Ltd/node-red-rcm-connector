@@ -1,12 +1,20 @@
 {
   "name": "node-red-contrib-rcm-connector",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "MMG2 Connector for Node-RED",
   "main": "mmg2-connector.js",
   "author": "Gary Ott",
   "license": "MIT",
   "keywords": "node-red",
+  "bugs": {
+    "url": "https://github.com/DVR-Ltd/node-red-rcm-connector/issues"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "node-red": {
+     "version": ">=3.0.2",
+
     "nodes": {
       "mmg2-connector": "mmg2-connector.js",
       "mmg2-maintained-list": "mmg2-maintained-list.js",
