@@ -1,10 +1,11 @@
 {
-  "name": "node-red-contrib-mmg2-connector",
+  "name": "node-red-contrib-rcm-connector",
   "version": "1.0.0",
   "description": "MMG2 Connector for Node-RED",
   "main": "mmg2-connector.js",
   "author": "Gary Ott",
   "license": "ISC",
+  "keywords": "node-red",
   "node-red": {
     "nodes": {
       "mmg2-connector": "mmg2-connector.js",
