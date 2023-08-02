@@ -3,7 +3,7 @@
 const
 	{
 		MMG2CoreAPI
-	}     = require("node-red-rcm-connector"),
+	}     = require("rcm-core-client"),
 
 	HW_STATE_RELAY                    = 1,                  //Relay state
 	HW_STATE_SWITCH                   = 2,                  //Switch state

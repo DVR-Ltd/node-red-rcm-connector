@@ -12,7 +12,7 @@ const
 
 	{
 		MMG2CoreAPI
-	}     = require("node-red-rcm-connector");
+	}     = require("rcm-core-client");
 
 
 module.exports = function(RED) {
